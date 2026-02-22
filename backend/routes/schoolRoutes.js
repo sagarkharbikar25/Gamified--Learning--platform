@@ -4,8 +4,7 @@ const User = require("../models/User");
 const Activity = require("../models/Activity");
 const Submission = require("../models/Submission");
 const { protect, authorize } = require("../middleware/authMiddleware");
- 
-// School overview stats
+
 router.get("/stats", protect, authorize("school", "admin"), async (req, res) => {
   const [totalStudents, totalTeachers, totalActivities, pendingVerifications] = await Promise.all([
     User.countDocuments({ role: "student", isActive: true }),
@@ -15,5 +14,5 @@ router.get("/stats", protect, authorize("school", "admin"), async (req, res) => 
   ]);
   res.json({ success: true, stats: { totalStudents, totalTeachers, totalActivities, pendingVerifications } });
 });
- 
+
 module.exports = router;

@@ -22,7 +22,7 @@ const leaderboardRoutes = require("./routes/leaderboardRoutes");
 const aiRoutes = require("./routes/aiRoutes");
 const gameRoutes = require("./routes/gameRoutes");
 const adminRoutes = require("./routes/adminRoutes");
- 
+ const Anthropic = require('@anthropic-ai/sdk');  // ✅ correct
 const app = express();
  
 // ─── Connect Database ────────────────────────────
