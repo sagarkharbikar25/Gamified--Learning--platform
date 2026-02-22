@@ -1,137 +1,158 @@
-🌱 EcoGamify – Gamified Learning Platform
-EcoGamify is a gamified eco‑learning web platform that motivates students to learn about environmental sustainability through challenges, rewards, leaderboards, and mini‑games. The platform encourages real‑world eco‑friendly actions by combining education with fun and competition.
-
-🚀 Features
-👩‍🎓 Student Features
-User Registration & Login
-
-Dashboard with:
-
-Points
-
-Streaks
-
-Levels
-
-XP Progress Bar
-
-Eco‑friendly Challenges
-
-Proof Submission for completed challenges
-
-Eco Solutions / Idea Sharing
-
-Leaderboard (Top performers)
-
-Mini Game for bonus points
-
-👨‍🏫 Admin / Teacher Features
-Admin Dashboard
-
-View and verify student submissions
-
-Approve or reject proofs
-
-Create new eco challenges
-
-Assign points to students
-
-🧭 Application Flow
-User registers / logs in
-
-User lands on dashboard
-
-User completes eco challenges and submits proof
-
-Admin verifies submissions
-
-Points, streaks, and leaderboard update
-
-User can play mini game for bonus XP
-
-🛠️ Tools & Technologies
-Frontend
-
-HTML5
-
-CSS3
-
-JavaScript (Vanilla JS)
-
-Backend
-
-Node.js
-
-Express.js
-
-Database
-
-MongoDB
-
-MongoDB Atlas
-
-MongoDB Compass
-
-Authentication & Security
-
-JWT (JSON Web Token)
-
-bcryptjs
-
-dotenv
-
-CORS
-
-Development Tools
-
-VS Code
-
-Git & GitHub
-
-GitHub Desktop / Git CLI
-
-📁 Project Structure
-Gamified-Learning-Platform/
-│
-├── frontend/
-│   ├── index.html
-│   ├── dashboard.html
-│   ├── challenges.html
-│   ├── leaderboard.html
-│   ├── admin.html
-│   ├── css/
-│   └── js/
-│
+# 🎓 EduQuest — Gamified Learning Platform
+ 
+A full-stack gamified learning platform with AI-powered features built with React, Node.js, Express, and MongoDB.
+ 
+---
+ 
+## 📁 Folder Structure
+ 
+```
+eduquest/
 ├── backend/
-│   ├── models/
-│   ├── routes/
-│   ├── config/
-│   ├── server.js
+│   ├── config/         → Database connection
+│   ├── controllers/    → Route logic (auth, AI, activities, games...)
+│   ├── middleware/     → JWT auth, error handler
+│   ├── models/         → MongoDB schemas
+│   ├── routes/         → Express route definitions
+│   ├── utils/          → Seed script
+│   ├── .env            → 🔑 Your environment variables
+│   ├── server.js       → App entry point
 │   └── package.json
 │
-└── README.md
-👥 Team Members
-Anushka Moon – Frontend (HTML & Components)
-
-Hitesh Mishra – UI & Styling (CSS)
-
-Sahil Kundojwar – Frontend Logic (JavaScript)
-
-Sagar Kharbikar – Backend & Database (Node.js, MongoDB)
-
-🎯 Why EcoGamify?
-This project was built to increase student engagement in environmental education by using gamification techniques such as points, rewards, leaderboards, and real‑world challenges, making learning interactive and impactful.
-
-📌 Future Scope
-Real‑time notifications
-
-Mobile app version
-
-Advanced analytics dashboard
-
-More interactive games
-
-Social sharing of achievements
-
-🏁 Conclusion
-EcoGamify combines education, sustainability, and technology to create an engaging learning experience that motivates users to take real eco‑friendly actions while learning in a fun and competitive way.
+├── frontend/
+│   ├── public/         → index.html
+│   ├── src/
+│   │   ├── components/ → All UI components
+│   │   ├── context/    → AuthContext (user state)
+│   │   ├── hooks/      → useAITutor (streaming chat)
+│   │   ├── services/   → API calls (axios)
+│   │   └── utils/      → Shared styles/tokens
+│   ├── .env
+│   └── package.json
+```
+ 
+---
+ 
+## 🚀 Quick Start
+ 
+### Step 1 — Prerequisites
+- Node.js 18+
+- MongoDB (local or Atlas)
+- Anthropic API key (for AI features)
+ 
+### Step 2 — Backend Setup
+ 
+```bash
+cd backend
+npm install
+```
+ 
+Edit `backend/.env`:
+```env
+MONGO_URI=mongodb://localhost:27017/eduquest   # or your Atlas URI
+JWT_SECRET=your_secret_key_here
+ANTHROPIC_API_KEY=sk-ant-your-key-here        # Get from console.anthropic.com
+CLOUDINARY_CLOUD_NAME=your_cloud
+CLOUDINARY_API_KEY=your_key
+CLOUDINARY_API_SECRET=your_secret
+CLIENT_URL=http://localhost:3000
+```
+ 
+Seed demo data:
+```bash
+cd utils
+node seed.js
+```
+ 
+Start backend:
+```bash
+cd ..
+npm run dev    # uses nodemon (hot reload)
+# or
+npm start      # production
+```
+ 
+Backend runs on → http://localhost:5000
+ 
+### Step 3 — Frontend Setup
+ 
+```bash
+cd frontend
+npm install
+npm start
+```
+ 
+Frontend runs on → http://localhost:3000
+ 
+---
+ 
+## 🔑 Demo Login Credentials (after seed)
+ 
+| Role    | Email                        | Password     |
+|---------|------------------------------|--------------|
+| Student | arjun@student.edu            | Student@123  |
+| Teacher | aarti@sunriseschool.edu      | Teacher@123  |
+| School  | admin@sunriseschool.edu      | School@123   |
+ 
+---
+ 
+## 🤖 AI Features (requires ANTHROPIC_API_KEY)
+ 
+| Feature                | Description                                      |
+|------------------------|--------------------------------------------------|
+| **AI Tutor Chat**      | Streaming chat with Claude — any subject          |
+| **Activity Generator** | Teachers describe topic → AI creates full quiz   |
+| **Submission Feedback**| AI grades student work with detailed analysis    |
+| **Study Plan**         | Personalized weekly schedule based on weak areas |
+| **Performance Insights**| AI analyzes trends and gives recommendations    |
+| **AI Quiz Questions**  | Dynamic questions for Brain Quiz mini game       |
+ 
+---
+ 
+## 🗃️ Database Collections
+ 
+- **users** — Students, Teachers, School admins with XP/gems/level
+- **activities** — Assignments, quizzes, projects
+- **submissions** — Student submissions with AI feedback
+- **badges** — Achievement badges
+- **gamesessions** — Mini game scores and XP
+ 
+---
+ 
+## 🌐 API Endpoints
+ 
+```
+POST   /api/auth/register
+POST   /api/auth/login
+GET    /api/auth/me
+ 
+GET    /api/activities          (role-filtered)
+POST   /api/activities          (teacher)
+POST   /api/activities/:id/submit   (student)
+PUT    /api/activities/submissions/:id/verify  (teacher)
+ 
+POST   /api/ai/tutor            (streaming SSE)
+POST   /api/ai/generate-activity
+POST   /api/ai/feedback/:id
+POST   /api/ai/study-plan
+GET    /api/ai/insights/:id
+ 
+GET    /api/leaderboard
+GET    /api/students
+GET    /api/teachers
+GET    /api/school/stats
+ 
+POST   /api/games/session
+GET    /api/leaderboard
+```
+ 
+---
+ 
+## 📦 Tech Stack
+ 
+**Frontend:** React 18, React Router v6, Axios, React Hot Toast  
+**Backend:** Node.js, Express, JWT, Bcrypt, Multer, Mongoose  
+**Database:** MongoDB  
+**AI:** Anthropic Claude (claude-sonnet-4-20250514)  
+**File Storage:** Cloudinary  
+**Styling:** Pure CSS-in-JS (no Tailwind dependency)
