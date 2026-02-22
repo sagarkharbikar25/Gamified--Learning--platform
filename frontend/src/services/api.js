@@ -1,26 +1,33 @@
 import axios from "axios";
 
+// Ensure fallback works properly
+const BASE_URL =
+  process.env.REACT_APP_API_URL?.trim() || "http://localhost:5050/api";
+
 const API = axios.create({
-baseURL: process.env.REACT_APP_API_URL || "http://localhost:5050/api",  withCredentials: true,
+  baseURL: BASE_URL,
+  withCredentials: true,
 });
 
 // Attach JWT token to every request
 API.interceptors.request.use((config) => {
   const token = localStorage.getItem("eduquest_token");
-  if (token) config.headers.Authorization = `Bearer ${token}`;
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
   return config;
 });
 
-// Auto-logout on 401
+// Auto logout on unauthorized
 API.interceptors.response.use(
-  (res) => res,
-  (err) => {
-    if (err.response?.status === 401) {
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 401) {
       localStorage.removeItem("eduquest_token");
       localStorage.removeItem("eduquest_user");
       window.location.href = "/login";
     }
-    return Promise.reject(err);
+    return Promise.reject(error);
   }
 );
 
