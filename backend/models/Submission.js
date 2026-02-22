@@ -1,11 +1,10 @@
-{
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-  challengeId: { type: mongoose.Schema.Types.ObjectId, ref: "Challenge" },
+const mongoose = require("mongoose");
 
-  proofUrl: String,
-  proofText: String,
+const submissionSchema = new mongoose.Schema({
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  challenge: { type: mongoose.Schema.Types.ObjectId, ref: "Challenge" },
+  proof: String,
+  status: { type: String, default: "pending" }
+});
 
-  status: { type: String, enum: ["pending", "approved", "rejected"], default: "pending" },
-
-  submittedAt: { type: Date, default: Date.now }
-}
+module.exports = mongoose.model("Submission", submissionSchema);

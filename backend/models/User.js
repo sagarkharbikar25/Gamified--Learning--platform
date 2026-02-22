@@ -1,13 +1,33 @@
-{
-  name: String,
-  email: String,
-  password: String,
-  role: { type: String, enum: ["student", "admin"], default: "student" },
+const mongoose = require("mongoose");
 
-  points: { type: Number, default: 0 },
-  streak: { type: Number, default: 0 },
-  level: { type: Number, default: 1 },
+const userSchema = new mongoose.Schema(
+  {
+    role: {
+      type: String,
+      enum: ["student", "teacher", "school"],
+      required: true,
+    },
 
-  badges: [String],
-  createdAt: { type: Date, default: Date.now }
-}
+    firstName: String,
+    lastName: String,
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    phone: String,
+
+    password: {
+      type: String,
+      required: true,
+    },
+
+    // Extra fields optional (can expand later)
+    schoolName: String,
+    grade: String,
+    state: String,
+  },
+  { timestamps: true }
+);
+
+module.exports = mongoose.model("User", userSchema);

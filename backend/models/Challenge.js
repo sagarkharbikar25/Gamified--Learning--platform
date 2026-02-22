@@ -1,6 +1,9 @@
-{
+const mongoose = require("mongoose");
+
+const challengeSchema = new mongoose.Schema({
   title: String,
   description: String,
-  points: Number,
-  deadline: Date,
-  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
+  points: Number
+});
+
+module.exports = mongoose.model("Challenge", challengeSchema);
