@@ -72,7 +72,7 @@ npm run dev    # uses nodemon (hot reload)
 npm start      # production
 ```
  
-Backend runs on → http://localhost:5000
+Backend runs on → http://localhost:5050
  
 ### Step 3 — Frontend Setup
  
