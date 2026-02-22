@@ -79,7 +79,7 @@ app.get("/api/health", (req, res) => res.json({ success: true, message: "EduQues
 app.use(errorHandler);
  
 // ─── Start Server ────────────────────────────────
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5050;
 app.listen(PORT, () => {
   console.log(`\n🚀 EduQuest Server running on http://localhost:${PORT}`);
   console.log(`📚 Environment: ${process.env.NODE_ENV}`);
